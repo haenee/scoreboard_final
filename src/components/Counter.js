@@ -1,4 +1,5 @@
 import React from "react";
+import {changeScore} from "../redux/actions";
 
 export class Counter extends React.Component {
   render() {
@@ -14,3 +15,7 @@ export class Counter extends React.Component {
     );
   }
 }
+
+const mapActionToProps = (dispatch) => ({
+  changeScore: (id, delta) => dispatch(changeScore(id,delta))
+});
