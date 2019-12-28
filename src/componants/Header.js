@@ -1,6 +1,6 @@
 import React from "react";
 import {Stats} from "./Stats";
-import {Stopmatch} from "./Stopmatch";
+import {Stopwatch} from "./Stopwatch";
 
 export const Header = (props) => {
   console.log(props);
@@ -8,7 +8,7 @@ export const Header = (props) => {
     <header className="header">
       <Stats players={props.players} />
       <h1 className="h1">{props.title}</h1>
-      <Stopmatch></Stopmatch>
+      <Stopwatch></Stopwatch>
     </header>
   );
 }
