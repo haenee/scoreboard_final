@@ -12,6 +12,6 @@ setTimeout(function () {
 console.log("C");
 
 //만일 루프가돌면?
-// while(true) {}
+//while(true) {}
 
 //예약목록 확인 및 실행
