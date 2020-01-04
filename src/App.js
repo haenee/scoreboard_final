@@ -3,56 +3,33 @@ import './App.css';
 import {Header} from './components/Header';
 import {Player} from "./components/Player";
 import AddPlayerForm from "./components/AddPlayerForm";
-import {connect} from "react-redux";
+import {useSelector} from "react-redux";
+import {CustomPlayer} from "./components/CustomPlayer";
+import _ from 'lodash';
 
-let maxId = 4;
+const App =()=>{
+  const players = useSelector(state => state.playerReducer.players);
 
-class App extends React.Component {
-
-  /*handleRemovePlayer = (id) => {
-    console.log('handleRemovePlayer: ', id);
-    this.setState(prevState => {
-      const players = prevState.players.filter(player => player.id !== id);
-      return {
-        players: players
-      }
-    })
-  }*/
-
-  /*  handleAddPlayer = (name) => {
-      console.log('handleAddPlayer: ', name);
-      this.setState(prevState => {
-        const players = [ ...prevState.players ];
-        players.push({name: name, id: ++maxId, score: 0});
-        return { players }
-      })
-    }*/
-  render() {
-    return (
-      <div className="scoreboard">
-        <Header title="My Scoreboard" players={this.props.players}></Header>
-
-        {
-          this.props.players.map(player => (
-              <Player name={player.name} key={player.id} id={player.id} score={player.score}
-                      removePlayer={this.handleRemovePlayer}
-                      changeScore={this.handleChangeScore}>
-              </Player>
-            )
-          )
-        }
-        <AddPlayerForm></AddPlayerForm>
-      </div>
-    );
+  const getHighScore = () =>{
+    //로직
+    return _.maxBy(players,'score').score;
   }
+
+  return (
+    <div className="scoreboard">
+      <Header title="My Scoreboard" players={players}></Header>
+
+      {
+        players.map(player => (
+            <CustomPlayer name={player.name} key={player.id} id={player.id}
+                          score={player.score} isHighScore={player.score===getHighScore()}>
+            </CustomPlayer>
+          )
+        )
+      }
+      <AddPlayerForm></AddPlayerForm>
+    </div>
+  );
 }
 
-// subscribe: store의 state => 나의, props로 매핑
-// 부모 => 자식 통신
-const mapStateToProps = (state) => ({
-  // 왼쪽이 props, 오른쪽이 store의 state
-  players: state.playerReducer.players
-})
-
-// 커링 펑션, HoC 컴포넌튼
-export default connect(mapStateToProps)(App);
+export  default  App;

@@ -1,9 +1,7 @@
 import React from "react";
-import {Counter} from "./Counter";
-import {addPlayer} from "../redux/actions";
-import {connect, useDispatch} from "react-redux";
-import {AddPlayerForm} from "./AddPlayerForm";
+import Counter from "./Counter";
 import {removePlayer} from "../redux/actions";
+import {useDispatch} from "react-redux";
 
 export const Player = (props) => {
   const dispatch = useDispatch();
@@ -11,6 +9,7 @@ export const Player = (props) => {
     <div className="player">
 		  <span className="player-name">
         <button className="remove-player" onClick={() => dispatch(removePlayer(props.id))}> x </button>
+        {props.children}
         {props.name}
       </span>
       <Counter id={props.id} score={props.score} />
